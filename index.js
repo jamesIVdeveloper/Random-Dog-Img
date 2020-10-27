@@ -5,7 +5,13 @@ function getDogImages(inputValue) {
     
     fetch(requiredUrl)
         .then(response => response.json())
-        .then(responseJson => console.log(responseJson));
+        .then(responseJson => displayImages(responseJson));
+}
+
+function displayImages(responseJson) {
+    console.log(responseJson);
+    $('.results-img').replaceWith(`<img src="${responseJson.message}" class="results-img">`)
+    $('.results').removeClass('hidden');
 }
 
 function watchForm() {
