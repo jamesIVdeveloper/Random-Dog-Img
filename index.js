@@ -5,17 +5,26 @@ function getDogImages(inputValue) {
     
     fetch(requiredUrl)
         .then(response => response.json())
-        .then(responseJson => displayImages(responseJson));
+        .then(responseJson => displayImages(responseJson))
+        
 }
 
 function displayImages(responseJson) {
     console.log(responseJson);
-    $('.results-img').replaceWith(`<img src="${responseJson.message}" class="results-img">`)
+    
+    for (let i = 0; i < responseJson.message.length; i++) {
+        var image = new Image();
+        image.src = responseJson.message[i];
+        $('#container').append(image);
+    }
+    
     $('.results').removeClass('hidden');
+
 }
 
 function watchForm() {
     $('form').submit(event => {
+        $('#container').html('');
         event.preventDefault();
         let inputValue = $('#numDogs').val();
         getDogImages(inputValue);
